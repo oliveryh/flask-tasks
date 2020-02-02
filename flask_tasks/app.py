@@ -1,14 +1,19 @@
 import flask
-from infrastructure.view_modifiers import response
 
 app = flask.Flask(__name__)
 
 
-@app.route("/")
-@response(template_file="home/index.html")
-def index():
-    return {}
+def main():
+    register_blueprints()
+    app.run(debug=True)
+
+
+def register_blueprints():
+    from flask_tasks.views import home_views
+    app.register_blueprint(home_views.blueprint)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    main()
+else:
+    register_blueprints()
