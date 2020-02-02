@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/static/css/site.css">
+        <title>{% block page_title %}Standard Title Here{% endblock %}</title>
+    </head>
+    <body>
+
+
+    <nav>
+        <a href="/">home</a>
+        <a href="/about">about</a>
+    </nav>
+
+    <style>
+        .title {
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="main_content">
+        {% block main_content %}{% endblock %}
+    </div>
+
+    </body>
+</html>
