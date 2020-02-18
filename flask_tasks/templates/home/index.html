@@ -4,9 +4,17 @@
     <div class="ui container">
         <div class="ui segments">
             <div class="ui top attached label">{{ task_count }} Tasks</div>
-            {% for task in tasks %}
-            <div class="ui segment">{{ task.desc }}</div>
-            {% endfor %}
+        {% for task in tasks %}
+            {% if task.complete %}
+            <div class="ui secondary segment">
+                <i class="check square outline icon"></i>{{ task.desc }}
+            </div>
+            {% else %}
+            <div class="ui segment">
+                    <i class="square outline icon"></i>{{ task.desc }}
+            </div>
+            {% endif %}
+        {% endfor %}
         </div>
     </div>
 {% endblock %}
