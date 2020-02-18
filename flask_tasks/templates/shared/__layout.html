@@ -1,29 +1,36 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="/static/css/site.css">
-        <title>{% block page_title %}Standard Title Here{% endblock %}</title>
-    </head>
-    <body>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/site.css">
 
 
-    <nav>
-        <a href="/">home</a>
-        <a href="/about">about</a>
-    </nav>
+    <!-- You MUST include jQuery before Fomantic -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js"></script>
 
-    <style>
-        .title {
-            font-weight: bold;
-        }
-    </style>
+    <title>{% block page_title %}Standard Title Here{% endblock %}</title>
+</head>
+<body>
 
-    <div class="main_content">
-        {% block main_content %}{% endblock %}
-    </div>
+<div class="ui three item menu">
+    <a class="item" href="/">Home</a>
+    <a class="item" href="/about">About</a>
+</div>
 
-    </body>
+
+<style>
+    .title {
+        font-weight: bold;
+    }
+</style>
+
+<div class="main_content">
+    {% block main_content %}{% endblock %}
+</div>
+
+</body>
 </html>
