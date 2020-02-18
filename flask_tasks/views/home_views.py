@@ -9,9 +9,11 @@ blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 @blueprint.route("/")
 @response(template_file="home/index.html")
 def index():
+    tasks = tasks_service.get_tasks()
     task_count = tasks_service.get_task_count()
     return {
-        "task_count": task_count
+        "task_count": task_count,
+        "tasks": tasks
     }
 
 @blueprint.route("/about")

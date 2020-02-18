@@ -1,5 +1,12 @@
 {% extends "shared/__layout.html" %}
 {% block main_content %}
-    <h1>Welcome to Flask Tasks</h1>
-    You have {{ task_count }} tasks
+    <h1 class="ui center aligned header">Tasks</h1>
+    <div class="ui container">
+        <div class="ui segments">
+            <div class="ui top attached label">{{ task_count }} Tasks</div>
+            {% for task in tasks %}
+            <div class="ui segment">{{ task.desc }}</div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
