@@ -6,17 +6,17 @@
             <div class="ui top attached label">{{ task_count }} Tasks</div>
             {% for task in tasks %}
                 {% if task.completed %}
+                    <div class="ui secondary segment">
+                        <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
+                               data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}" checked>
+                        {{ task.desc }}
+                    </div>
+                {% else %}
                     <div class="ui segment">
                         <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
                                data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}">
                         {{ task.desc }}
                     </div>
-                {% else %}
-                <div class="ui secondary segment">
-                    <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
-                           data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}" checked>
-                    {{ task.desc }}
-                </div>
                 {% endif %}
             {% endfor %}
         </div>
