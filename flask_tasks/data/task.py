@@ -12,7 +12,7 @@ class Task(SqlAlchemyBase):
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now())
     due_date = sa.Column(sa.DateTime, nullable=True)
     desc = sa.Column(sa.String, nullable=True)
-    complete = sa.Column(sa.Boolean, default=False)
+    completed = sa.Column(sa.Boolean, default=False)
 
     user_id = sa.Column(sa.String, sa.ForeignKey("users.id"))
     user = orm.relation("User")

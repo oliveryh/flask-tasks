@@ -4,17 +4,45 @@
     <div class="ui container">
         <div class="ui segments">
             <div class="ui top attached label">{{ task_count }} Tasks</div>
-        {% for task in tasks %}
-            {% if task.complete %}
-            <div class="ui secondary segment">
-                <i class="check square outline icon"></i>{{ task.desc }}
-            </div>
-            {% else %}
-            <div class="ui segment">
-                    <i class="square outline icon"></i>{{ task.desc }}
-            </div>
-            {% endif %}
-        {% endfor %}
+            {% for task in tasks %}
+                {% if task.completed %}
+                    <div class="ui segment">
+                        <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
+                               data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}">
+                        {{ task.desc }}
+                    </div>
+                {% else %}
+                <div class="ui secondary segment">
+                    <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
+                           data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}" checked>
+                    {{ task.desc }}
+                </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    function toggleCompleted(elem) {
+        let type = (elem.dataset.completed == "1" ? "item_uncompleted" : "item_completed");
+        fetch(`/update_task`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: elem.dataset.id,
+                type: type
+            })
+        });
+        elem.dataset.completed = (elem.dataset.completed == "1" ? "0" : "1");
+        if (type == "item_completed"){
+            elem.parentElement.classList.add("secondary");
+            elem.checked = true;
+        }
+        else {
+            elem.parentElement.classList.remove("secondary");
+            elem.checked = false;
+        }
+    }
 {% endblock %}
