@@ -13,6 +13,7 @@ class Task(SqlAlchemyBase):
     due_date = sa.Column(sa.DateTime, nullable=True)
     desc = sa.Column(sa.String, nullable=True)
     completed = sa.Column(sa.Boolean, default=False)
+    last_updated = sa.Column(sa.DateTime, default=datetime.datetime.now())
 
     user_id = sa.Column(sa.String, sa.ForeignKey("users.id"))
     user = orm.relation("User")
