@@ -15,6 +15,7 @@ class User(SqlAlchemyBase):
     name = sa.Column(sa.String, nullable=False)
     email = sa.Column(sa.String, unique=True, nullable=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now(), index=True)
+    hashed_password = sa.Column(sa.String, nullable=True)
 
     tasks = orm.relation("Task", order_by=Task.created_date, back_populates="user")
 

@@ -2,7 +2,9 @@ import flask
 from flask import request
 
 from flask_tasks.infrastructure.view_modifiers import response
+from flask_tasks.infrastructure import request_dict
 import flask_tasks.services.tasks_service as tasks_service
+import flask_tasks.services.users_service as users_service
 
 blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 
@@ -31,4 +33,25 @@ def update_task():
 @response(template_file="home/about.html")
 def about():
     return {}
+
+@blueprint.route("/register", methods=["GET"])
+@response(template_file="home/register.html")
+def register_get():
+    return {}
+
+@blueprint.route("/register", methods=["POST"])
+@response(template_file="home/register.html")
+def register_post():
+
+    data = request_dict.create(default_val="")
+
+    name = data.name
+    email = data.email.lower().strip()
+    password = data.password.strip()
+
+    user = users_service.add_user(name, email, password)
+
+    resp = flask.redirect("/")
+
+    return resp
 
