@@ -26,3 +26,21 @@ def hash_text(text: str) -> str:
     hashed_text = crypto.encrypt(text, rounds=123456)
     return hashed_text
 
+def login_user(email: str, password: str) -> Optional[User]:
+
+    session = db_session.create_session()
+
+    user = session.query(User).filter(User.email == email).first()
+
+    if not user or not crypto.verify(password, user.hashed_password):
+        return None
+
+    return user
+
+def get_user_by_id(user_id: str) -> Optional[User]:
+
+    session = db_session.create_session()
+
+    user = session.query(User).filter(User.id == user_id).first()
+
+    return user

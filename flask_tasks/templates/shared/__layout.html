@@ -16,10 +16,14 @@
 </head>
 <body>
 
-<div class="ui three item menu">
-    <a class="item" href="/">Home</a>
+<div class="ui four item menu">
+    <a class="item" href="/">Account</a>
     <a class="item" href="/about">About</a>
-    <a class="item" href="/register">Register</a>
+    {% if user_id %}
+        <a class="item" href="/logout">Logout</a>
+    {% else %}
+        <a class="item" href="/register">Register</a>
+    {% endif %}
 </div>
 
 

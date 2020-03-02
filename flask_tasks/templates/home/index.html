@@ -1,6 +1,6 @@
 {% extends "shared/__layout.html" %}
 {% block main_content %}
-    <h1 class="ui center aligned header">Tasks</h1>
+    <h1 class="ui center aligned header">{{ user.name }}'s Tasks</h1>
     <div class="ui container">
         <div class="ui segments">
             <div class="ui top attached label">{{ task_count }} Tasks</div>
