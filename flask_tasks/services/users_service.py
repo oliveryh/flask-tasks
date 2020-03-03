@@ -44,3 +44,14 @@ def get_user_by_id(user_id: str) -> Optional[User]:
     user = session.query(User).filter(User.id == user_id).first()
 
     return user
+
+def does_email_exist(email: str) -> bool:
+
+    session = db_session.create_session()
+
+    user = session.query(User).filter(User.email == email).first()
+
+    if user:
+        return True
+    else:
+        return False

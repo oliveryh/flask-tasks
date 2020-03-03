@@ -2,10 +2,11 @@ import flask
 from flask import request
 
 from flask_tasks.infrastructure.view_modifiers import response
-from flask_tasks.infrastructure import request_dict
 import flask_tasks.services.tasks_service as tasks_service
-import flask_tasks.services.users_service as users_service
 from infrastructure import cookie_auth
+from flask_tasks.viewmodels.accounts.index_view_model import IndexViewModel
+from flask_tasks.viewmodels.accounts.login_view_model import LoginViewModel
+from flask_tasks.viewmodels.accounts.register_view_model import RegisterViewModel
 
 blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 
@@ -13,22 +14,15 @@ blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 @blueprint.route("/")
 @response(template_file="home/index.html")
 def index():
-    tasks = tasks_service.get_tasks()
-    task_count = tasks_service.get_task_count()
-    user_id = cookie_auth.get_user_id_via_auth_cookie(flask.request)
-    if user_id is None:
+    vm = IndexViewModel()
+    if vm.user_id is None:
         return flask.redirect("/login")
 
-    user = users_service.get_user_by_id(user_id)
-    if user is None:
+    if vm.user is None:
         return flask.redirect("/login")
 
-    return {
-        "tasks": tasks,
-        "task_count": task_count,
-        "user": user,
-        "user_id": cookie_auth.get_user_id_via_auth_cookie(flask.request),
-    }
+    return vm.to_dict()
+
 
 @blueprint.route("/update_task", methods=["POST"])
 def update_task():
@@ -40,68 +34,64 @@ def update_task():
         tasks_service.item_uncompleted(task_id)
     return {}
 
+
 @blueprint.route("/about")
 @response(template_file="home/about.html")
 def about():
-    return {
-        "user_id": cookie_auth.get_user_id_via_auth_cookie(flask.request),
-    }
+    vm = IndexViewModel()
+    return vm.to_dict()
+
 
 @blueprint.route("/register", methods=["GET"])
 @response(template_file="accounts/register.html")
 def register_get():
-    return {
-        "user_id": cookie_auth.get_user_id_via_auth_cookie(flask.request),
-    }
+    vm = RegisterViewModel()
+    return vm.to_dict()
+
 
 @blueprint.route("/register", methods=["POST"])
 @response(template_file="accounts/register.html")
 def register_post():
+    vm = RegisterViewModel()
 
-    data = request_dict.create(default_val="")
+    vm.validate()
 
-    name = data.name
-    email = data.email.lower().strip()
-    password = data.password.strip()
+    if vm.error:
+        return vm.to_dict()
 
-    user = users_service.add_user(name, email, password)
+    vm.register_user()
 
     resp = flask.redirect("/")
-    cookie_auth.set_auth(resp, user.id)
+    cookie_auth.set_auth(resp, vm.user.id)
 
     return resp
+
 
 @blueprint.route("/login", methods=["GET"])
 @response(template_file="accounts/login.html")
 def login_get():
-    return {
-        "user_id": cookie_auth.get_user_id_via_auth_cookie(flask.request),
-    }
+    vm = LoginViewModel()
+    return vm.to_dict()
+
 
 @blueprint.route("/login", methods=["POST"])
 @response(template_file="accounts/login.html")
 def login_post():
+    vm = LoginViewModel()
 
-    data = request_dict.create(default_val="")
+    vm.validate()
 
-    email = data.email.lower().strip()
-    password = data.password.strip()
-
-    user = users_service.login_user(email, password)
-
-    if not user:
-        return {
-            "error": "The email or password you have entered is incorrect"
-        }
+    if vm.error:
+        return vm.to_dict()
 
     resp = flask.redirect("/")
-    cookie_auth.set_auth(resp, user.id)
+    cookie_auth.set_auth(resp, vm.user.id)
 
     return resp
 
+
 @blueprint.route("/logout", methods=["GET"])
 def logout_get():
-
     resp = flask.redirect("/")
     cookie_auth.logout(resp)
     return resp
