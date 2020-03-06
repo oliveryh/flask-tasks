@@ -1,6 +1,5 @@
-from viewmodels.shared.viewmodelbase import ViewModelBase
+from flask_tasks.viewmodels.shared.viewmodelbase import ViewModelBase
 from flask_tasks.services import users_service
-from flask_tasks.services import tasks_service
 
 
 class LoginViewModel(ViewModelBase):

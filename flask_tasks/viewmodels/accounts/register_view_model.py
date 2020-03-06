@@ -1,4 +1,4 @@
-from viewmodels.shared.viewmodelbase import ViewModelBase
+from flask_tasks.viewmodels.shared.viewmodelbase import ViewModelBase
 from flask_tasks.services import users_service
 
 

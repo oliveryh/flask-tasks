@@ -20,8 +20,9 @@ def setup_db():
     db_session.global_init(db_file)
 
 def register_blueprints():
-    from flask_tasks.views import home_views
+    from flask_tasks.views import home_views, account_views
     app.register_blueprint(home_views.blueprint)
+    app.register_blueprint(account_views.blueprint)
 
 
 if __name__ == "__main__":
