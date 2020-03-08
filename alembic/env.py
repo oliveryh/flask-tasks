@@ -26,7 +26,7 @@ sys.path.insert(0, folder)
 
 from flask_tasks.data.modelbase import SqlAlchemyBase
 # noinspection PyUnresolvedReferences
-import flask_tasks.data.__allmodels
+import flask_tasks.data.__all_models
 
 target_metadata = SqlAlchemyBase.metadata
 

@@ -22,7 +22,7 @@ def global_init(db_file: str):
     __factory = orm.sessionmaker(bind=engine)
 
     # noinspection PyUnresolvedReferences
-    import flask_tasks.data.__allmodels
+    import flask_tasks.data.__all_models
 
     SqlAlchemyBase.metadata.create_all(engine)
 
