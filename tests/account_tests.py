@@ -1,22 +1,15 @@
-import os
-import sys
+import unittest.mock
 
 from flask import Response
-
-container_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-print(container_folder)
-sys.path.insert(0, container_folder)
-
 
 from flask_tasks.data.user import User
 from flask_tasks.data.task import Task
 from flask_tasks.viewmodels.accounts.register_view_model import RegisterViewModel
 from flask_tasks.views.account_views import register_post
 from tests.test_client import flask_app, client
-import unittest.mock
 
 
-def test_register_validation_for_existing_user():
+def test_vm_register_user_exists():
     # Arrange
     form_data = {
         "name": "Oliver",
@@ -37,7 +30,7 @@ def test_register_validation_for_existing_user():
     assert "email already exists" in vm.error
 
 
-def test_register_validation_when_valid():
+def test_vm_register_user_doesnt_exist():
     # Arrange
     form_data = {
         "name": "Oliver",
@@ -57,7 +50,7 @@ def test_register_validation_when_valid():
     assert vm.error is None
 
 
-def test_register_view_new_user():
+def test_v_register_successful_redirects_to_home():
     # Arrange
     form_data = {
         "name": "Oliver",
