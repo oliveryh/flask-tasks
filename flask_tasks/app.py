@@ -11,16 +11,15 @@ def main():
     setup_db()
     app.run(debug=True)
 
+
 def setup_db():
-    db_file = os.path.join(
-        os.path.dirname(__file__),
-        'db',
-        'flasktask.sqlite'
-    )
+    db_file = os.path.join(os.path.dirname(__file__), "db", "flasktask.sqlite")
     db_session.global_init(db_file)
+
 
 def register_blueprints():
     from flask_tasks.views import home_views, account_views
+
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(account_views.blueprint)
 

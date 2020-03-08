@@ -3,9 +3,7 @@ import sys
 
 from flask import Response
 
-container_folder = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '..'
-))
+container_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 print(container_folder)
 sys.path.insert(0, container_folder)
 
@@ -16,6 +14,7 @@ from flask_tasks.viewmodels.accounts.register_view_model import RegisterViewMode
 from flask_tasks.views.account_views import register_post
 from tests.test_client import flask_app, client
 import unittest.mock
+
 
 def test_register_validation_for_existing_user():
     # Arrange
@@ -78,23 +77,23 @@ def test_register_view_new_user():
     # Assert
     assert resp.location == "/"
 
+
 def test_int_account_home_with_login(client):
-    get_user_by_id = 'flask_tasks.services.users_service.get_user_by_id'
-    test_user = User(name='Michael', email='michael@talkpython.fm')
-    get_tasks = 'flask_tasks.services.tasks_service.get_tasks'
+    get_user_by_id = "flask_tasks.services.users_service.get_user_by_id"
+    test_user = User(name="Michael", email="michael@talkpython.fm")
+    get_tasks = "flask_tasks.services.tasks_service.get_tasks"
     test_tasks = [
         Task(desc="Task 1"),
         Task(desc="Task 2"),
     ]
-    get_task_count = 'flask_tasks.services.tasks_service.get_task_count'
+    get_task_count = "flask_tasks.services.tasks_service.get_task_count"
     test_task_count = 2
 
     user = unittest.mock.patch(get_user_by_id, return_value=test_user)
     tasks = unittest.mock.patch(get_tasks, return_value=test_tasks)
     task_count = unittest.mock.patch(get_task_count, return_value=test_task_count)
     with user, tasks, task_count:
-        resp: Response = client.get('/')
+        resp: Response = client.get("/")
 
     assert resp.status_code == 200
-    assert b'Michael' in resp.data
-
+    assert b"Michael" in resp.data

@@ -23,6 +23,7 @@ def global_init(db_file: str):
 
     # noinspection PyUnresolvedReferences
     import flask_tasks.data.__allmodels
+
     SqlAlchemyBase.metadata.create_all(engine)
 
 

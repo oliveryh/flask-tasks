@@ -5,7 +5,7 @@ from flask_tasks.infrastructure import cookie_auth
 from flask_tasks.viewmodels.accounts.login_view_model import LoginViewModel
 from flask_tasks.viewmodels.accounts.register_view_model import RegisterViewModel
 
-blueprint = flask.Blueprint('account', __name__, template_folder='templates')
+blueprint = flask.Blueprint("account", __name__, template_folder="templates")
 
 
 @blueprint.route("/register", methods=["GET"])

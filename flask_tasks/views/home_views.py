@@ -5,7 +5,7 @@ from flask_tasks.infrastructure.view_modifiers import response
 import flask_tasks.services.tasks_service as tasks_service
 from flask_tasks.viewmodels.accounts.index_view_model import IndexViewModel
 
-blueprint = flask.Blueprint('home', __name__, template_folder='templates')
+blueprint = flask.Blueprint("home", __name__, template_folder="templates")
 
 
 @blueprint.route("/")
@@ -35,5 +35,3 @@ def update_task():
 def about():
     vm = IndexViewModel()
     return vm.to_dict()
-
-

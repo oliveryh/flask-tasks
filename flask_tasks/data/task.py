@@ -5,6 +5,7 @@ import sqlalchemy.orm as orm
 
 from flask_tasks.data.modelbase import SqlAlchemyBase
 
+
 class Task(SqlAlchemyBase):
     __tablename__ = "tasks"
 
