@@ -12,8 +12,6 @@ blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 @response(template_file="home/index.html")
 def index():
     vm = IndexViewModel()
-    if vm.user_id is None:
-        return flask.redirect("/login")
 
     if vm.user is None:
         return flask.redirect("/login")

@@ -1,10 +1,7 @@
 import flask
-from flask import request
 
 from flask_tasks.infrastructure.view_modifiers import response
-import flask_tasks.services.tasks_service as tasks_service
 from flask_tasks.infrastructure import cookie_auth
-from flask_tasks.viewmodels.accounts.index_view_model import IndexViewModel
 from flask_tasks.viewmodels.accounts.login_view_model import LoginViewModel
 from flask_tasks.viewmodels.accounts.register_view_model import RegisterViewModel
 

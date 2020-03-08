@@ -27,5 +27,3 @@ def register_blueprints():
 
 if __name__ == "__main__":
     main()
-else:
-    main()
