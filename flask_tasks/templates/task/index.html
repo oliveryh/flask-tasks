@@ -25,7 +25,7 @@
 {% block scripts %}
     function toggleCompleted(elem) {
         let type = (elem.dataset.completed == "1" ? "item_uncompleted" : "item_completed");
-        fetch(`/update_task`, {
+        fetch(`/task/update`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

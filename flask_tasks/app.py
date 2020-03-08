@@ -18,10 +18,11 @@ def setup_db():
 
 
 def register_blueprints():
-    from flask_tasks.views import home_views, account_views
+    from flask_tasks.views import home_views, account_views, task_views
 
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(account_views.blueprint)
+    app.register_blueprint(task_views.blueprint)
 
 
 if __name__ == "__main__":
