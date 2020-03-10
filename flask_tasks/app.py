@@ -1,16 +1,23 @@
 import os
+import sys
 
 import flask
+
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, folder)
+
 import flask_tasks.data.db_session as db_session
 
 app = flask.Flask(__name__)
 
 
 def main():
-    register_blueprints()
-    setup_db()
+    configure()
     app.run(debug=True)
 
+def configure():
+    register_blueprints()
+    setup_db()
 
 def setup_db():
     db_file = os.path.join(os.path.dirname(__file__), "db", "flasktask.sqlite")
@@ -27,3 +34,5 @@ def register_blueprints():
 
 if __name__ == "__main__":
     main()
+else:
+    configure()
