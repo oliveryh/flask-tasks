@@ -1,0 +1,82 @@
+{% extends "shared/__layout.html" %}
+{% block main_content %}
+    <h1 class="ui center aligned header">{{ user.name }}'s Tasks</h1>
+    <div class="ui container">
+        <div class="ui segments">
+            <div class="ui top attached label">Add a Task</div>
+            <div class="ui secondary segment">
+                <div class="ui form">
+                    <div class="field">
+                        <form class="ui form" submit="" method="post">
+                            <div class="ui action input">
+                                <input name="desc" type="text" placeholder="Feed the Dogs...">
+                                <button class="ui button" type="submit">Add Task</button>
+                            </div>
+                            <div class="ui error message"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui container">
+        <div class="ui segments">
+            <div class="ui top attached label">{{ task_count }} Tasks</div>
+            {% for task in tasks %}
+                {% if task.completed %}
+                    <div class="ui secondary segment">
+                        <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
+                               data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}" checked>
+                        {{ task.desc }}
+                    </div>
+                {% else %}
+                    <div class="ui segment">
+                        <input class="toggle" type="checkbox" onclick="toggleCompleted(this)"
+                               data-completed="{{ 1 if task.completed else 0 }}" data-id="{{ task.id }}">
+                        {{ task.desc }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    function toggleCompleted(elem) {
+        let type = (elem.dataset.completed == "1" ? "item_uncompleted" : "item_completed");
+        fetch(`/task/update`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: elem.dataset.id,
+                type: type
+            })
+        });
+        elem.dataset.completed = (elem.dataset.completed == "1" ? "0" : "1");
+        if (type == "item_completed"){
+            elem.parentElement.classList.add("secondary");
+            elem.checked = true;
+        }
+        else {
+            elem.parentElement.classList.remove("secondary");
+            elem.checked = false;
+        }
+    }
+    $('.ui.form')
+  .form({
+    fields: {
+      name: {
+        identifier: 'desc',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'You must enter a task'
+          }
+        ]
+      }
+    }
+  })
+;
+{% endblock %}

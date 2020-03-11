@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/site.css">
+
+
+    <!-- You MUST include jQuery before Fomantic -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js"></script>
+
+    <title>{% block page_title %}Standard Title Here{% endblock %}</title>
+</head>
+<body>
+
+<div class="ui four item menu">
+    <a class="item" href="/task">Tasks</a>
+    <a class="item" href="/about">About</a>
+    {% if user_id %}
+        <a class="item" href="/logout">Logout</a>
+    {% else %}
+        <a class="item" href="/register">Register</a>
+    {% endif %}
+</div>
+
+
+<style>
+    .title {
+        font-weight: bold;
+    }
+</style>
+
+<div class="main_content">
+    {% block main_content %}{% endblock %}
+</div>
+
+<script>
+    {% block scripts %}{% endblock %}
+</script>
+
+</body>
+</html>

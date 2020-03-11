@@ -1,0 +1,56 @@
+{% extends "shared/__layout.html" %}
+{% block main_content %}
+    <h1 class="ui center aligned header">Login</h1>
+    <div class="ui container">
+        <div class="ui segments">
+            <div class="ui segment">
+                <form class="ui form" submit="" method="post">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <button class="ui button" type="submit">Login</button>
+                    <div class="ui error message"></div>
+                </form>
+                {% if error %}
+                <div class="ui negative message">
+                    {{ error }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    $('.ui.form')
+    .form({
+        fields: {
+            email: {
+                identifier: 'email',
+                rules: [
+                    {
+                    type   : 'empty',
+                    prompt : 'Please enter an email'
+                    }
+                ]
+            },
+            password: {
+                identifier: 'password',
+                rules: [
+                  {
+                    type   : 'empty',
+                    prompt : 'Please enter a password'
+                  },
+                  {
+                    type   : 'minLength[6]',
+                    prompt : 'Your password must be at least {ruleValue} characters'
+                  }
+                ]
+            },
+        }
+    });
+{% endblock %}
