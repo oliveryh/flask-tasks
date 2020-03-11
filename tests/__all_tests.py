@@ -6,3 +6,6 @@ sys.path.insert(0, container_folder)
 
 # noinspection PyUnresolvedReferences
 from tests.account_tests import *
+
+# noinspection PyUnresolvedReferences
+from tests.task_tests import *

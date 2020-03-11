@@ -3,6 +3,25 @@
     <h1 class="ui center aligned header">{{ user.name }}'s Tasks</h1>
     <div class="ui container">
         <div class="ui segments">
+            <div class="ui top attached label">Add a Task</div>
+            <div class="ui secondary segment">
+                <div class="ui form">
+                    <div class="field">
+                        <form class="ui form" submit="" method="post">
+                            <div class="ui action input">
+                                <input name="desc" type="text" placeholder="Feed the Dogs...">
+                                <button class="ui button" type="submit">Add Task</button>
+                            </div>
+                            <div class="ui error message"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui container">
+        <div class="ui segments">
             <div class="ui top attached label">{{ task_count }} Tasks</div>
             {% for task in tasks %}
                 {% if task.completed %}
@@ -45,4 +64,19 @@
             elem.checked = false;
         }
     }
+    $('.ui.form')
+  .form({
+    fields: {
+      name: {
+        identifier: 'desc',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'You must enter a task'
+          }
+        ]
+      }
+    }
+  })
+;
 {% endblock %}

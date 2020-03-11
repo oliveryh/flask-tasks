@@ -14,6 +14,13 @@ def get_user_tasks(user_id) -> [Task]:
     session = db_session.create_session()
     return session.query(User).filter(User.id == user_id).first().tasks
 
+def create_user_task(user_id, desc) -> bool:
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == user_id).first()
+    new_task = Task(desc=desc)
+    user.tasks.append(new_task)
+    session.commit()
+    return True
 
 def item_completed(task_id) -> dict:
     session = db_session.create_session()
