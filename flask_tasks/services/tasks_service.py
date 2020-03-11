@@ -2,16 +2,17 @@ from flask import jsonify
 
 import flask_tasks.data.db_session as db_session
 from flask_tasks.data.task import Task
+from flask_tasks.data.user import User
 
 
-def get_task_count() -> int:
+def get_user_task_count(user_id) -> int:
     session = db_session.create_session()
-    return session.query(Task).count()
+    return len(session.query(User).filter(User.id == user_id).first().tasks)
 
 
-def get_tasks() -> [Task]:
+def get_user_tasks(user_id) -> [Task]:
     session = db_session.create_session()
-    return session.query(Task).all()
+    return session.query(User).filter(User.id == user_id).first().tasks
 
 
 def item_completed(task_id) -> dict:

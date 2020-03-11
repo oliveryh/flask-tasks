@@ -74,19 +74,19 @@ def test_v_register_successful_redirects_to_home():
 def test_int_account_home_with_login(client):
     get_user_by_id = "flask_tasks.services.users_service.get_user_by_id"
     test_user = User(name="Michael", email="michael@talkpython.fm")
-    get_tasks = "flask_tasks.services.tasks_service.get_tasks"
+    get_user_tasks = "flask_tasks.services.tasks_service.get_user_tasks"
     test_tasks = [
         Task(desc="Task 1"),
         Task(desc="Task 2"),
     ]
-    get_task_count = "flask_tasks.services.tasks_service.get_task_count"
+    get_user_task_count = "flask_tasks.services.tasks_service.get_user_task_count"
     test_task_count = 2
 
     user = unittest.mock.patch(get_user_by_id, return_value=test_user)
-    tasks = unittest.mock.patch(get_tasks, return_value=test_tasks)
-    task_count = unittest.mock.patch(get_task_count, return_value=test_task_count)
+    tasks = unittest.mock.patch(get_user_tasks, return_value=test_tasks)
+    task_count = unittest.mock.patch(get_user_task_count, return_value=test_task_count)
     with user, tasks, task_count:
-        resp: Response = client.get("/")
+        resp: Response = client.get("/task")
 
     assert resp.status_code == 200
     assert b"Michael" in resp.data
